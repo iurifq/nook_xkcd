@@ -28,6 +28,7 @@ sub prepareText {
 $m = WWW::Mechanize->new();
 $titlePointSize = 20;
 $altPointSize = 30;
+mkdir("xkcd") || die "Unable to create directory <$!>\n";
 for($i = 0; $i != 100 ; $i++) { # gets 100 random comics
     $m->get("http://dynamic.xkcd.com/random/comic/");
 
@@ -62,7 +63,7 @@ for($i = 0; $i != 100 ; $i++) { # gets 100 random comics
         $image->Annotate(y => 5, gravity => 'North', pointsize => $altPointSize, text => $alt);
         $image->Annotate(gravity =>'South', pointsize => $titlePointSize, text => $title);
         $image->Quantize(colorspace => 'gray');
-        $image->Write("xkcd_$i.$extension"); # writes image file
+        $image->Write("xkcd/$i.$extension"); # writes image file
     }
     unlink($filePath); # removes temporary image file
 }
