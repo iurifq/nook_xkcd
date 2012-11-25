@@ -36,8 +36,8 @@ for($i = 0; $i != 100 ; $i++) { # gets 100 random comics
         $filePath = "/tmp/$fileName";
 
         # decodes eventual html entities contained in the texts
-        $title = decode_entities($5);
-        $alt = decode_entities($6);
+        $title = decode_entities($5)." ";
+        $alt = decode_entities($6)." ";
 
         $m->get($url);
         open IMAGE, '>', "$filePath" or die "Can't open file '$filePath'";
