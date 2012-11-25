@@ -7,9 +7,10 @@ use List::Util qw[min max];
 
 # break the text in many lines if necessary
 sub prepareText {
-    $image = $_[0];
-    $text = $_[1];
-    $pointsize = $_[2];
+    my %args = @_;
+    $image = $args{image};
+    $text = $args{text};
+    $pointsize = $args{pointsize};
     $lastSpace = 0;
     for($j = 0; $j != length($text); $j++) {
         if(substr($text,$j,1) eq " ") {
@@ -47,8 +48,8 @@ for($i = 0; $i != 100 ; $i++) { # gets 100 random comics
         my $image = Image::Magick->new;
         $image->read($filePath);
 
-        $title = prepareText($image, $title, $titlePointSize);
-        $alt = prepareText($image, $alt, $altPointSize);
+        $title = prepareText(image => $image, text => $title, pointsize => $titlePointSize);
+        $alt = prepareText(image => $image, text => $alt, pointsize => $altPointSize);
 
         $heightAlt = ($image->QueryMultilineFontMetrics(text => $alt, pointsize => $altPointSize ))[5];
         $heightTitle = ($image->QueryMultilineFontMetrics(text => $title, pointsize => $titlePointSize ))[5];
