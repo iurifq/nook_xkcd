@@ -14,8 +14,9 @@ sub prepareText {
     $lastSpace = 0;
     for($j = 0; $j != length($text); $j++) {
         if(substr($text,$j,1) eq " ") {
-            ($_, $_, $_, $_, $width, $_, $_) = $image->QueryMultilineFontMetrics(text => substr($text, 0, $j), pointsize => $pointsize );
-            if($width > 560){ # max text width to look good on screen
+            ($_, $_, $_, $_, $width, $_, $_) =
+                $image->QueryMultilineFontMetrics(text => substr($text, 0, $j), pointsize => $pointsize );
+            if($width > 580){ # max text width to look good on screen
                 substr($text, $lastSpace, 1)="\n";
             }
             $lastSpace = $j;
@@ -54,7 +55,7 @@ for($i = 0; $i != 100 ; $i++) { # gets 100 random comics
         $heightAlt = ($image->QueryMultilineFontMetrics(text => $alt, pointsize => $altPointSize ))[5];
         $heightTitle = ($image->QueryMultilineFontMetrics(text => $title, pointsize => $titlePointSize ))[5];
 
-        $height = 800-2*max($heightTitle,$heightAlt)-5; # leaves space for title, alt and some space
+        $height = 800 - 2 * max($heightTitle, $heightAlt) - 5; # leaves space for title, alt and some space
         $image->Set(Gravity => 'Center');
         $image->Resize(geometry => "600x$height");
         $image->Extent(geometry => '600x800'); # extends the image mantaining comic in the middle
